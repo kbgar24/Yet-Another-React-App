@@ -13,14 +13,8 @@ export const toggleTodo = (todo) => {
   return result;
 }
 
-export const updateTodo = (list, updatedTodo) => { 
-  const updatedIndex = list.findIndex(item => item.id === updatedTodo.id)
-
-  return [
-    ...list.slice(0, updatedIndex),
-    updatedTodo,
-    ...list.slice(updatedIndex+1)
-
-  ]
+export const updateTodo = (list, update) => {
+  return list.map(item => item.id !== update.id ? item : update);
 }
+
 
