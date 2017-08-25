@@ -17,4 +17,6 @@ export const updateTodo = (list, update) => {
   return list.map(item => item.id !== update.id ? item : update);
 }
 
-
+export const removeTodo = (list, id) => {
+  return list.filter(item => item.id !== id)
+}

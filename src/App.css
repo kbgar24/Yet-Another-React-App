@@ -44,3 +44,16 @@ li {
 .error {
   color: red;
 }
+
+li span.delete-item {
+  visibility: hidden;
+}
+
+li:hover span.delete-item {
+  visibility: visible;
+}
+
+span.delete-item a {
+  color: red;
+  text-decoration: none;
+}
