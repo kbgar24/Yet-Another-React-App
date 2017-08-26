@@ -57,3 +57,12 @@ span.delete-item a {
   color: red;
   text-decoration: none;
 }
+
+.Footer a {
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+.Footer a.active {
+  font-weight: bold;
+}
