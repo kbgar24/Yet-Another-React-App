@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import logo from './logo.svg';
 import './App.css';
 import {TodoForm, TodoList, Footer} from './components/todo';
-import {addTodo, generateID, findById, toggleTodo, updateTodo, removeTodo} from './lib/todoHelpers';
+import {addTodo, generateID, findById, toggleTodo, updateTodo, removeTodo, filterTodos} from './lib/todoHelpers';
 import {pipe, partial} from './lib/utils'
 
 class App extends Component {
@@ -15,6 +16,9 @@ class App extends Component {
       currentTodo: ''
     }
 
+  static contextTypes = {
+    route: PropTypes.string
+  }
 
   handleInputChange = (evt) => {
     this.setState({
@@ -66,6 +70,7 @@ class App extends Component {
   render() {
 
     const submitHandler = this.state.currentTodo ? this.handleSubmit : this.handleEmptySubmit;
+    const displayTodos = filterTodos(this.state.todos, this.context.route)
     
     return (
       <div className="App">
@@ -79,7 +84,7 @@ class App extends Component {
             currentTodo={this.state.currentTodo} 
             handleSubmit={submitHandler}
           />
-        <TodoList todos={this.state.todos} handleToggle={this.handleToggle} handleRemove={this.handleRemove} />
+        <TodoList todos={displayTodos} handleToggle={this.handleToggle} handleRemove={this.handleRemove} />
         <Footer />
 
         </div>

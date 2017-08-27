@@ -20,3 +20,14 @@ export const updateTodo = (list, update) => {
 export const removeTodo = (list, id) => {
   return list.filter(item => item.id !== id)
 }
+
+export const filterTodos = (list, route) => {
+  if (route === '/active') {
+    return list.filter(item => !item.isComplete)
+  } else if (route === '/complete'){
+    return list.filter(item => item.isComplete)
+  } else {
+    return list
+  }
+}
+
