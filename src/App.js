@@ -4,20 +4,22 @@ import logo from './logo.svg';
 import './App.css';
 import {TodoForm, TodoList, Footer} from './components/todo';
 import {addTodo, generateID, findById, toggleTodo, updateTodo, removeTodo, filterTodos} from './lib/todoHelpers';
-import {pipe, partial} from './lib/utils'
+import {pipe, partial} from './lib/utils';
+import {loadTodos} from './lib/todoService';
 
 class App extends Component {
   state = {
-      todos: [
-        {id: 1, name: 'Learn JSX', isComplete: true},
-        {id: 2, name: 'Build and Awesome App!', isComplete: false},
-        {id: 3, name: 'Ship It!', isComplete: false},
-      ],
+      todos: [],
       currentTodo: ''
     }
 
   static contextTypes = {
     route: PropTypes.string
+  }
+
+  componentDidMount() {
+    loadTodos()
+      .then(todos => this.setState({todos: todos}))
   }
 
   handleInputChange = (evt) => {
@@ -52,7 +54,7 @@ class App extends Component {
     // const todo = findById(this.state.todos, id)
     // const toggled = toggleTodo(todo)
     const getUpdatedTodos = pipe(findById, toggleTodo, partial(updateTodo, this.state.todos))
-    const updatedTodos = getUpdatedTodos(id, this.state.todos)
+    const updatedTodos = getUpdatedTodos(this.state.todos, id)
     this.setState({
       todos: updatedTodos
     })
